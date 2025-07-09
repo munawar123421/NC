@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    // Take 5 values of X
+    vector<double> xValues(5);
+    cout << "Enter 5 values of X: ";
+    for (int i = 0; i < 5; ++i) {
+        cin >> xValues[i];
+    }
+
+    // Take 5 values of Y
+    vector<double> yValues(5);
+    cout << "Enter 5 values of Y: ";
+    for (int i = 0; i < 5; ++i) {
+        cin >> yValues[i];
+    }
+
+    // Perform backward interpolation
+    double x;
+    cout << "Enter the value of X for interpolation: ";
+    cin >> x;
+
+    double result = 0;
+    for (int i = 0; i < 5; ++i) {
+        double term = yValues[i];
+        for (int j = 0; j < 5; ++j) {
+            if (j != i) {
+                term *= (x - xValues[j]) / (xValues[i] - xValues[j]);
+            }
+        }
+        result += term;
+    }
+
+    // Display the interpolated value
+    cout << "Interpolated value at X = " << x << " is: " << result << endl;
+
+    return 0;
+}
